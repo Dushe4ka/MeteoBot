@@ -44,8 +44,7 @@ def save_data_to_database(database_name, data_logs, params):
         for log in data_logs:
             cur.execute("""
                             INSERT INTO logs (tg_id, command, data_time, response)
-                            VALUES (%s, %s, %s, %s)
-                            returning company_id;
+                            VALUES (%s, %s, %s, %s);
                             """, (log['tg_id'], log['command'], log['data_time'], log['response']))
 
         conn.commit()

@@ -52,7 +52,7 @@ def response_result(data, city):
 
 
 def request_weather(city):
-    result = requests.get("https://openweathermap.org/find",
+    result = requests.get("https://ru.api.openweathermap.org/data/2.5/find",
                           params={
                               'q': city,
                               'type': 'like',
@@ -72,7 +72,7 @@ def request_weather(city):
 def start(message):
     bot.send_message(message.from_user.id, start_text, parse_mode='Markdown')
     log_list = []
-    log_list.append({'tg_id': message.from_user.id, 'command': message.text, 'data_time': datetime.date, 'response':start_text})
+    log_list.append({'tg_id': message.from_user.id, 'command': message.text, 'data_time': str(datetime.datetime.now()), 'response':start_text})
     save_data_to_database('logs', log_list, config())
     print(log_list)
 
@@ -84,7 +84,7 @@ def get_weather(message):
     bot.send_message(message.from_user.id, f'{result}')
     log_list = []
     log_list.append(
-        {'tg_id': message.from_user.id, 'command': message.text, 'data_time': datetime.date, 'response': result})
+        {'tg_id': message.from_user.id, 'command': message.text, 'data_time': str(datetime.datetime.now()), 'response': result})
     save_data_to_database('logs', log_list, config())
     print(log_list)
 
@@ -96,8 +96,9 @@ def main():
 
 
 if __name__ == '__main__':
-    while True:
-        try:
-            main()
-        except Exception as e:
-            print(f'❌❌❌❌❌ Сработало исключение! {e} ❌❌❌❌❌')
+    main()
+    # while True:
+    #     try:
+    #         main()
+    #     except Exception as e:
+    #         print(f'❌❌❌❌❌ Сработало исключение! {e} ❌❌❌❌❌')
